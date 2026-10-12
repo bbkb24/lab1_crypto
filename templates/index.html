@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card cyber-card p-4 mb-4">
+            <h4 class="mb-3">Шифратор / Дешифратор</h4>
+            <form action="/process" method="POST">
+                <div class="mb-3">
+                    <label class="form-label">Ваш текст:</label>
+                    <textarea name="text" class="form-control" rows="4" required>{{ original_text }}</textarea>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label class="form-label">Алгоритм:</label>
+                        <select name="cipher_type" class="form-select">
+                            <option value="caesar">Шифр Цезаря</option>
+                            <option value="vertical">Вертикальна перестановка</option>
+                            <option value="horizontal">Горизонтальна перестановка</option>
+                            <option value="combined">Комбінована перестановка</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Зсув (Цезар):</label>
+                        <input type="number" name="shift" class="form-control" value="3">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Ключ 1 (Слово):</label>
+                        <input type="text" name="key" class="form-control" value="ШИФР">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Ключ 2 (для Комбін.):</label>
+                        <input type="text" name="key2" class="form-control" value="КОД">
+                    </div>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" name="action" value="encrypt" class="btn btn-success">Зашифрувати</button>
+                    <button type="submit" name="action" value="decrypt" class="btn btn-warning">Розшифрувати</button>
+                    <button type="submit" name="action" value="freq" class="btn btn-info">Частотний аналіз</button>
+                </div>
+            </form>
+        </div>
+
+        {% if result %}
+        <div class="card cyber-card p-4 mb-4 border-success">
+            <h5>Результат:</h5>
+            <div class="p-3 bg-dark border rounded text-light" style="word-break: break-all;">
+                {{ result }}
+            </div>
+        </div>
+        {% endif %}
+        
+        {% if freq %}
+        <div class="card cyber-card p-4 border-info">
+            <h5>Частотний аналіз літер:</h5>
+            <div class="d-flex flex-wrap gap-2 mt-2">
+                {% for char, percent in freq.items() %}
+                    <span class="badge bg-info text-dark p-2">{{ char }}: {{ percent }}%</span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

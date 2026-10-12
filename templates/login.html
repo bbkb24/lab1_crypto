@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card cyber-card p-4">
+            <h3 class="text-center mb-4">Вхід у систему</h3>
+            
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+
+            <form method="POST">
+                <div class="mb-3">
+                    <label class="form-label">Логін</label>
+                    <input type="text" name="username" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Пароль</label>
+                    <input type="password" name="password" class="form-control" required>
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" name="action" value="login" class="btn btn-primary">Увійти</button>
+                    <button type="submit" name="action" value="register" class="btn btn-outline-info">Зареєструватися</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
