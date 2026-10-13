@@ -2,6 +2,18 @@
 {% block content %}
 <div class="row">
     <div class="col-md-12">
+        
+        <!-- JWT ТОКЕН -->
+        {% if session.get('jwt_token') %}
+        <div class="card cyber-card p-4 mb-4 border-warning">
+            <h5>🔑 Ваш JWT Токен (для Лабораторної №2):</h5>
+            <div class="p-3 bg-dark border rounded text-warning" style="word-break: break-all; font-family: monospace;">
+                {{ session.jwt_token }}
+            </div>
+            <small class="text-muted mt-2">Скопіюйте цей токен для розшифровки на <a href="https://jwt.io" target="_blank" class="text-info">jwt.io</a> або для авторизації в Postman (Bearer Token).</small>
+        </div>
+        {% endif %}
+
         <div class="card cyber-card p-4 mb-4">
             <h4 class="mb-3">Шифратор / Дешифратор</h4>
             <form action="/process" method="POST">
